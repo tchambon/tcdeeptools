@@ -53,7 +53,7 @@ def get_id_training(path='./svg', name='', placeholder=True, config='',learner='
     print(f'Biggest index = {index}, new index = {index+1}')
     if placeholder:
         with open(f'{path}/{index+1}-placeholder-{name}', 'w') as fp:
-            fp.write(f'size:{config.size}\nbs:{config.bs}\nopt: {default_param_opt}\nsched:{default_param_sched}\nconfig:{config}\nlearner:{learner}\n Zoom: {ZOOM_FACTORS}')
+            fp.write(f'size:{config.size}\nbs:{config.bs}\nopt: {config.params_opt}\nsched:{config.params_sched}\nconfig:{config}\nlearner:{learner}\n Zoom: {ZOOM_FACTORS}')
 
 
     return index+1
