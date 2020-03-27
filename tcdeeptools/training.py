@@ -5,8 +5,8 @@ __all__ = ['annealer', 'sched_cos', 'sched_lin', 'sched_no', 'SlowStartCyle', 'F
 
 # Cell
 import matplotlib.pyplot as plt
-from PIL import Image
 import torch
+from torch.optim.lr_scheduler import _LRScheduler
 
 # Cell
 

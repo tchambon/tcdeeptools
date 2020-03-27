@@ -6,7 +6,7 @@ __all__ = ['clean', 'get_files_dir', 'get_name_training', 'get_id_training', 'to
 
 # Cell
 import matplotlib.pyplot as plt
-from PIL import Image
+import PIL
 import torch
 import gc
 
