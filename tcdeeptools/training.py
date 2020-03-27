@@ -7,6 +7,8 @@ __all__ = ['annealer', 'sched_cos', 'sched_lin', 'sched_no', 'SlowStartCyle', 'F
 import matplotlib.pyplot as plt
 import torch
 from torch.optim.lr_scheduler import _LRScheduler
+from functools import partial
+
 
 # Cell
 
