@@ -3,6 +3,11 @@
 __all__ = ['nb2script']
 
 # Cell
+import json,re
+from pathlib import Path
+import io
+
+# Cell
 
 def _is_export(cell):
     if cell['cell_type'] != 'code': return False
