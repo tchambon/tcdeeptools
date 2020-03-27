@@ -31,12 +31,12 @@ def get_files_dir(path, ext, debug=False):
     return list(set(items))
 
 
-def get_name_training(prefix, placeholder=True, config='',learner=''):
-    id_training = get_id_training(placeholder=placeholder, config=config,learner=learner)
+def get_name_training(prefix, placeholder=True, params={}):
+    id_training = get_id_training(placeholder=placeholder, params=params)
     return f'{id_training}-{prefix}'
 
 
-def get_id_training(path='./svg', name='', placeholder=True, config='',learner='', params_opt='', params_sched=''):
+def get_id_training(path='./svg', name='', placeholder=True, params={}):
     files = get_files_dir(path, [''], debug=False)
 
     index = 0
@@ -53,7 +53,7 @@ def get_id_training(path='./svg', name='', placeholder=True, config='',learner='
     print(f'Biggest index = {index}, new index = {index+1}')
     if placeholder:
         with open(f'{path}/{index+1}-placeholder-{name}', 'w') as fp:
-            fp.write(f'size:{config.size}\nbs:{config.bs}\nopt: {params_opt}\nsched:{params_sched}\nconfig:{config}\nlearner:{learner}\n Zoom: {ZOOM_FACTORS}')
+            fp.write(f'{params}')
 
 
     return index+1
