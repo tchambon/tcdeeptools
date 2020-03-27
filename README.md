@@ -1,4 +1,3 @@
-# nbdev template
+# Tcdeeptools
 
-Use this template to more easily create your nbdev project.
-
+> Simple tools for deep learning development in Jupyter environments.
