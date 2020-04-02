@@ -169,7 +169,7 @@ class OutputTrainingWidget:
         self.current += 1
         with self.display:
             plt.figure(figsize=(20,20))
-            if self.current % self.history_size == 0:
+            if self.history_size != -1 and self.current % self.history_size == 0:
                 clear_output()
             print(f'Display minibatch for iter {nb_iter}')
 
