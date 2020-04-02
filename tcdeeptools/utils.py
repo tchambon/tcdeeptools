@@ -176,7 +176,7 @@ class OutputTrainingWidget:
             ax = plt.gca()
 
             grid = torchvision.utils.make_grid(minibatch[:,:3,:,:], nrow=self.nrow_batch, normalize=normalize)
-            tc.utils.show_img_from_tensor(grid, ax = ax)
+            show_img_from_tensor(grid, ax = ax)
             plt.show()
 
 # Cell
