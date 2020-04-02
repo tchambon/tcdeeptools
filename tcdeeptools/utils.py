@@ -14,7 +14,8 @@ from torch.utils.tensorboard import SummaryWriter
 import datetime
 from functools import partial
 
-
+import ipywidgets as widgets
+from IPython.display import clear_output
 
 # Cell
 def clean():
