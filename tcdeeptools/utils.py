@@ -17,6 +17,7 @@ from functools import partial
 import ipywidgets as widgets
 from IPython.display import clear_output
 import math
+import torchvision
 
 # Cell
 def clean():
@@ -174,7 +175,7 @@ class OutputTrainingWidget:
 
             ax = plt.gca()
 
-            grid = utils.make_grid(minibatch[:,:3,:,:], nrow=self.nrow_batch, normalize=normalize)
+            grid = torchvision.utils.make_grid(minibatch[:,:3,:,:], nrow=self.nrow_batch, normalize=normalize)
             tc.utils.show_img_from_tensor(grid, ax = ax)
             plt.show()
 
