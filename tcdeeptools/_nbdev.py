@@ -31,11 +31,13 @@ index = {"nb2script": "00_core.ipynb",
          "LinearLR": "02_training.ipynb",
          "ExponentialLR": "02_training.ipynb",
          "StateCacher": "02_training.ipynb",
-         "lr_finder": "02_training.ipynb"}
+         "lr_finder": "02_training.ipynb",
+         "AdaptiveConcatPool2d": "03_layers.ipynb"}
 
 modules = ["core.py",
            "utils.py",
-           "training.py"]
+           "training.py",
+           "layers.py"]
 
 doc_url = "https://tchambon.github.io/tcdeeptools/"
 
