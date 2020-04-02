@@ -16,6 +16,7 @@ from functools import partial
 
 import ipywidgets as widgets
 from IPython.display import clear_output
+import math
 
 # Cell
 def clean():
