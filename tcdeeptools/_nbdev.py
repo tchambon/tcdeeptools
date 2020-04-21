@@ -33,6 +33,7 @@ index = {"nb2script": "00_core.ipynb",
          "StateCacher": "02_training.ipynb",
          "lr_finder": "02_training.ipynb",
          "AdaptiveConcatPool2d": "03_layers.ipynb",
+         "CircularPad2d": "03_layers.ipynb",
          "init_cnn": "03_layers.ipynb",
          "generate_gaussian_points": "03_layers.ipynb",
          "OTGauss": "03_layers.ipynb"}
