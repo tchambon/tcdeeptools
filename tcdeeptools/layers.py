@@ -117,7 +117,7 @@ class OTGauss(nn.Module):
         if self.loss_fn is None:
             dist = torch.mean(((proj_gen - self.projeted_target) ** 2), axis=-1)
         else:
-            dist = self.loss_fn(proj_gen, self.projeted_target)
+            dist = self.loss_fn(proj_gen, self.projeted_target, reduction='none')
         #print(f'shape dist after sum {dist.shape}')
         assert(len(dist) == self.nb_dim)
 
