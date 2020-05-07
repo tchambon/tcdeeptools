@@ -181,10 +181,10 @@ class OutputTrainingWidget:
 
 # Cell
 
-def get_tb_logdir(name):
+def get_tb_logdir(name, base_dir='logs/'):
     current_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
-    return 'logs/' + current_time + f'/{name}'
+    return base_dir + current_time + f'/{name}'
 
 def get_identity_training(name):
     return f'{name}-{datetime.datetime.now().strftime("%Y%m%d-%H%M%S")}'
