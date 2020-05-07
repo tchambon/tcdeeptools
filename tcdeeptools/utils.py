@@ -189,8 +189,8 @@ def get_tb_logdir(name, base_dir='logs/'):
 def get_identity_training(name):
     return f'{name}-{datetime.datetime.now().strftime("%Y%m%d-%H%M%S")}'
 
-def get_tb_writer(name):
+def get_tb_writer(name, base_dir='logs/'):
 
-    train_summary_writer = SummaryWriter(get_tb_logdir(name))
+    train_summary_writer = SummaryWriter(get_tb_logdir(name, base_dir))
 
     return train_summary_writer
