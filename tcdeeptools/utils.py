@@ -2,7 +2,8 @@
 
 __all__ = ['clean', 'extract_minibatch', 'get_files_dir', 'get_name_training', 'get_id_training', 'to_byte_tensor',
            'to_float_tensor', 'normalize_tan', 'decode_from_tan', 'loader', 'show_img_from_tensor', 'gradient_flow',
-           'viz_grad_flow', 'OutputTrainingWidget', 'get_tb_logdir', 'get_identity_training', 'get_tb_writer']
+           'viz_grad_flow', 'activation_flow', 'viz_activation_flow', 'OutputTrainingWidget', 'get_tb_logdir',
+           'get_identity_training', 'get_tb_writer']
 
 # Cell
 import matplotlib.pyplot as plt
@@ -146,9 +147,47 @@ def viz_grad_flow(names, mean_grad, std_grad, median_grad, norm_grad, target= 'N
     axes[2].plot(names, norm_grad)
 
 
-    axes[0].set_title(f'Mean(R)/Med(B) {target}')
-    axes[1].set_title(f'Std {target}')
-    axes[2].set_title(f'Norm {target}')
+    axes[0].set_title(f'Grad Mean(R)/Med(B) {target}')
+    axes[1].set_title(f'Grad Std {target}')
+    axes[2].set_title(f'Grad Norm {target}')
+
+
+    return fig
+
+
+
+
+def activation_flow(m):
+    mean_act = []
+    std_act = []
+    median_act = []
+    norm_act = []
+    names = []
+    for i, (n, p) in enumerate(m.named_parameters()):
+        if p.data is not None and p.data.ndimension() > 1 :
+            #print(n, p.grad.shape, p.grad.ndimension())
+            mean_act.append(p.data.mean())
+            std_act.append(p.data.std())
+            median_act.append(p.data.median())
+            norm_act.append(p.data.norm())
+            names.append(n.replace('layers', 'l'))
+
+    return names, mean_act, std_act, median_act, norm_act
+
+def viz_activation_flow(names, mean_act, std_act, median_act, norm_act, target= 'Not specified'):
+    fig, axes = plt.subplots(nrows=3, ncols=1,figsize=(15, 12))
+
+    axes = axes.flatten()
+
+    axes[0].plot(names, mean_act, c='r')
+    axes[0].plot(names, median_act, c='b')
+    axes[1].plot(names, std_act)
+    axes[2].plot(names, norm_act)
+
+
+    axes[0].set_title(f'Activation Mean(R)/Med(B) {target}')
+    axes[1].set_title(f'Activations Std {target}')
+    axes[2].set_title(f'Activations Norm {target}')
 
 
     return fig
