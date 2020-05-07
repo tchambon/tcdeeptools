@@ -77,13 +77,14 @@ def generate_gaussian_intervals(N):
     return G
 
 class OTGauss(nn.Module):
-    def __init__(self, nb_dim, output_size, batch_size, freq_reproj=0):
+    def __init__(self, nb_dim, output_size, batch_size, freq_reproj=0, loss_fn=None):
         super().__init__()
         self.nb_dim = nb_dim
         self.batch_size = batch_size
         self.output_size = output_size
         self.current_iter = 0
         self.freq_reproj = freq_reproj
+        self.loss_fn = loss_fn
 
         self.generate_dims()
 
@@ -113,8 +114,10 @@ class OTGauss(nn.Module):
         assert(proj_gen.shape == (self.nb_dim, self.batch_size))
 
         proj_gen = torch.sort(proj_gen, axis=-1)[0]
-
-        dist = torch.mean(((proj_gen - self.projeted_target) ** 2), axis=-1)
+        if self.loss_fn is None:
+            dist = torch.mean(((proj_gen - self.projeted_target) ** 2), axis=-1)
+        else:
+            dist = self.loss_fn(proj_gen, self.projeted_target)
         #print(f'shape dist after sum {dist.shape}')
         assert(len(dist) == self.nb_dim)
 
