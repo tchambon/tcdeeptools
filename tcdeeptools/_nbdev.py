@@ -39,8 +39,7 @@ index = {"nb2script": "00_core.ipynb",
          "init_cnn": "03_layers.ipynb",
          "generate_gaussian_points": "03_layers.ipynb",
          "generate_gaussian_intervals": "03_layers.ipynb",
-         "OTGauss": "03_layers.ipynb",
-         "OTGaussInterval": "03_layers.ipynb"}
+         "OTGauss": "03_layers.ipynb"}
 
 modules = ["core.py",
            "utils.py",
