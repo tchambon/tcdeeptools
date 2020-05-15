@@ -142,15 +142,17 @@ class OTGauss(nn.Module):
 
         if not hasattr(self, 'projeted_target'): self.generate_target()
 
-        self.projeted_target = self.dims @ self.target
-        assert(self.projeted_target.shape == (self.nb_dim, self.batch_size))
-        self.projeted_target = torch.sort(self.projeted_target, axis=-1)[0]
+#         self.projeted_target = self.dims @ self.target
+#         assert(self.projeted_target.shape == (self.nb_dim, self.batch_size))
+#         self.projeted_target = torch.sort(self.projeted_target, axis=-1)[0]
+        self.projeted_target = self.target
+
 
     def generate_target(self):
         #self.target = torch.tensor(generate_gaussian_points(self.output_size)).unsqueeze(-1).repeat((1,self.batch_size))
-        self.target = torch.tensor(generate_gaussian_points(self.output_size*self.batch_size))
-        self.target = self.target[torch.randperm(self.target.shape[0])]
-        self.target = self.target.view(-1, self.batch_size).type(torch.FloatTensor).cuda()
+        self.target = torch.tensor(generate_gaussian_points(self.batch_size))
+        self.target = self.target.type(torch.FloatTensor).cuda()
+
 
     def forward(self, generated):
         if self.freq_reproj > 0:
