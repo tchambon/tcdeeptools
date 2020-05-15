@@ -74,7 +74,7 @@ def generate_gaussian_intervals(N):
 
     #
 
-    return G[1:-1]
+    return G
 
 # class OTGauss(nn.Module):
 #     def __init__(self, nb_dim, output_size, batch_size, freq_reproj=0, loss_fn=None):
@@ -137,7 +137,7 @@ class OTGauss(nn.Module):
 
 
     def generate_dims(self):
-        self.dims = torch.rand((self.nb_dim, self.output_size)).cuda()
+        self.dims = torch.randn((self.nb_dim, self.output_size)).cuda()
         self.dims = (self.dims / torch.norm(self.dims, dim=1).unsqueeze(1))
 
         if not hasattr(self, 'projeted_target'): self.generate_target()
@@ -176,7 +176,7 @@ class OTGauss(nn.Module):
 
 
 # class OTGaussInterval(nn.Module):
-#     def __init__(self, nb_dim, output_size, batch_size, freq_reproj=0, loss_fn=None):
+#     def __init__(self, nb_dim, output_size, batch_size, freq_reproj=0, mae=False):
 #         super().__init__()
 #         self.nb_dim = nb_dim
 #         self.batch_size = batch_size
@@ -189,18 +189,25 @@ class OTGauss(nn.Module):
 
 
 #     def generate_dims(self):
-#         self.dims = torch.rand((self.nb_dim, self.output_size)).cuda()
+#         self.dims = torch.randn((self.nb_dim, self.output_size)).cuda()
 #         self.dims = (self.dims / torch.norm(self.dims, dim=1).unsqueeze(1))
 
 #         if not hasattr(self, 'projeted_target'): self.generate_target()
 
-#         self.projeted_target = self.dims @ self.target
-#         assert(self.projeted_target.shape == (self.nb_dim, self.batch_size))
-#         self.projeted_target = torch.sort(self.projeted_target, axis=-1)[0]
+# #         self.projeted_target = self.dims @ self.target
+# #         assert(self.projeted_target.shape == (self.nb_dim, self.batch_size))
+# #         self.projeted_target = torch.sort(self.projeted_target, axis=-1)[0]
+
 
 #     def generate_target(self):
-#         self.target = torch.tensor(generate_gaussian_intervals(self.output_size)).unsqueeze(-1).repeat((1,self.batch_size))
+#         #self.target = torch.tensor(generate_gaussian_points(self.output_size)).unsqueeze(-1).repeat((1,self.batch_size))
+#         self.target = torch.tensor(generate_gaussian_intervals(self.batch_size))
 #         self.target = self.target.type(torch.FloatTensor).cuda()
+
+#         self.target_lower = self.target[:-1]
+#         self.target_higher = self.target[1:]
+
+
 
 #     def forward(self, generated):
 #         if self.freq_reproj > 0:
@@ -208,11 +215,18 @@ class OTGauss(nn.Module):
 #             if self.current_iter % self.freq_reproj == 0:
 #                 self.generate_dims()
 #                 self.current_iter = 0
+
 #         proj_gen = self.dims @ generated.T
+
 #         #print(proj_gen.shape)
 #         assert(proj_gen.shape == (self.nb_dim, self.batch_size))
 
 #         proj_gen = torch.sort(proj_gen, axis=-1)[0]
+
+
+
+
+
 #         if self.loss_fn is None:
 #             dist = torch.mean(((proj_gen - self.projeted_target) ** 2), axis=-1)
 #         else:
@@ -221,4 +235,3 @@ class OTGauss(nn.Module):
 #         assert(len(dist) == self.nb_dim)
 
 #         return torch.mean(dist)
-
